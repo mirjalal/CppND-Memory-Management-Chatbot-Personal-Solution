@@ -49,10 +49,7 @@ ChatBot::ChatBot(const ChatBot &source) {
     std::cout << "ChatBot Copy Constructor" << std::endl;
 
     if (source._image != NULL)
-    {
         this->_image = source._image;
-        source._image = NULL;
-    }
     else
         this->_image = NULL;
 
@@ -77,10 +74,7 @@ ChatBot &ChatBot::operator=(const ChatBot &source) {
 
     // Assign data from source
     if (source._image != NULL)
-    {
         this->_image = source._image;
-        source._image = NULL;
-    }
     else
         this->_image = NULL;
     

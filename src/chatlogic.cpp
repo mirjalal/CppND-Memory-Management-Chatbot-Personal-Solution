@@ -152,20 +152,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                         ////
 
                         // find tokens for incoming (parent) and outgoing (child) node
-                        auto parentToken = std::find_if(
-                            tokens.begin(), 
-                            tokens.end(), 
-                            [&id](std::unique_ptr<GraphNode> &node) {
-                                return pair.first == "PARENT";
-                            }
-                        );
-                        auto childToken = std::find_if(
-                            tokens.begin(), 
-                            tokens.end(), 
-                            [&id](std::unique_ptr<GraphNode> &node) {
-                                return pair.first == "CHILD"; 
-                            }
-                        );
+                        auto parentToken = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "PARENT"; });
+                        auto childToken = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "CHILD"; });
 
                         if (parentToken != tokens.end() && childToken != tokens.end())
                         {
