@@ -215,26 +215,28 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
     // identify root node
     GraphNode *rootNode = nullptr;
-    for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
-    {
+    for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it) {
         // search for nodes which have no incoming edges
-        if ((*it)->GetNumberOfParents() == 0)
-        {
-
+        if ((*it)->GetNumberOfParents() == 0) {
             if (rootNode == nullptr)
-            {
                 rootNode = (*it).get(); // assign current node to root
-            }
             else
-            {
                 std::cout << "ERROR : Multiple root nodes detected" << std::endl;
-            }
         }
     }
 
+    // create instance of chatbot
+    ChatBot bot = ChatBot("../images/chatbot.png");
+    // set _chatBot value for GUI communication
+    _chatBot = &bot;
+
+    // add pointer to chatlogic so that chatbot answers can be passed on to the
+    // GUI
+    bot.SetChatLogicHandle(this);
+
     // add chatbot to graph root node
-    _chatBot->SetRootNode(rootNode);
-    rootNode->MoveChatbotHere(_chatBot);
+    bot.SetRootNode(rootNode);
+    rootNode->MoveChatbotHere(std::move(bot));
     
     ////
     //// EOF STUDENT CODE
