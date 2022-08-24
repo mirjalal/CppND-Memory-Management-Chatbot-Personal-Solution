@@ -49,7 +49,10 @@ ChatBot::ChatBot(const ChatBot &source) {
     std::cout << "ChatBot Copy Constructor" << std::endl;
 
     if (source._image != NULL)
+    {
+        this->_image = new wxBitmap();
         *this->_image = *source._image;
+    }
     else
         this->_image = NULL;
 
@@ -74,7 +77,10 @@ ChatBot &ChatBot::operator=(const ChatBot &source) {
 
     // Assign data from source
     if (source._image != NULL)
-        this->_image = source._image;
+    {
+        this->_image = new wxBitmap();
+        *this->_image = *source._image;
+    }
     else
         this->_image = NULL;
     
@@ -103,6 +109,9 @@ ChatBot::ChatBot(ChatBot &&source) {
     this->_chatLogic = source._chatLogic;
     this->_chatLogic->SetChatbotHandle(this);
 
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
     source._image = NULL;
 }
 
@@ -129,6 +138,9 @@ ChatBot &ChatBot::operator=(ChatBot &&source) {
     this->_chatLogic = source._chatLogic;
     this->_chatLogic->SetChatbotHandle(this);
 
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
     source._image = NULL;
 
     return *this;
